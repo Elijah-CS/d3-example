@@ -15,10 +15,10 @@ const Main = styled("main")`
 `
 
 const App: FC = () => {
-    const [xFactor, setXFactor] = useState<number>(0.2);
+    const [xFactor, setXFactor] = useState<number>(0.05);
     const [yFactor, setYFactor] = useState<number>(0.1);
 
-    const [index, setIndext] = useState<number>(0);
+    const [index, setIndex] = useState<number>(0);
 
     const data = [data1];
 

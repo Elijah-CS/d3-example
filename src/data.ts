@@ -9,7 +9,7 @@ export interface Link extends d3.SimulationLinkDatum<Node> {
     value: number;
 }
 
-export type Data {
+export type Data = {
     nodes: Node[];
     links: Link[];
 }

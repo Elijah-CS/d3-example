@@ -120,13 +120,13 @@ export const ForceGraph = ({datasets, width, height, xFactor, yFactor, index}: F
         let links = data.links.map(d => Object.assign({}, d))
 
         simulation.nodes(nodes)
-        simulation.force("link", d3.forceLink(links).id((a, i, _b), => (a as Node).id))
+        simulation.force("link", d3.forceLink(links).id((a, i, _b) => (a as Node).id))
         simulation.alpha(1).restart();
 
         node = node
-            .data(NodeList, d => d.id)
+            .data(nodes, d => d.id)
             .join(enter => enter.append("circle")
-                .attr("r" (n) => Math.max(Math.log2(values[n.id]) * 3, 3))
+                .attr("r", (n) => Math.max(Math.log2(values[n.id]) * 3, 3))
                 .attr("fill", "currentColor"))
             .call(drag(simulation) as any)
             .call(node => node.append("title").text(d => `${(d as Node).id}`));
@@ -155,7 +155,7 @@ export const ForceGraph = ({datasets, width, height, xFactor, yFactor, index}: F
         }
 
         return () => {
-            setPreviousNodes(nodeGroups.data())
+            setPreviousNodes(node.data())
 
             simulation.stop();
             d3.select("svg").remove()
