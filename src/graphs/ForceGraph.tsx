@@ -31,7 +31,7 @@ export const ForceGraph = ({datasets, width, height, xFactor, yFactor, index}: F
         .force("charge", d3.forceManyBody())
         .force("link", d3.forceLink().id(d => (d as Node).id).distance(200))
         .force("x", d3.forceX().strength(xFactor))
-        .force("y", d3.forceY().strength(yFactor))
+        .force("y", d3.forceY().strength((yFactor * width) / height)
         .on("tick", ticked)
         .on("end", () => {
             simulation.alphaTarget(0.5).restart()
