@@ -3,11 +3,7 @@ import "./App.css";
 import styled from "styled-components";
 import { CssBaseline } from "@mui/material";
 import {ForceGraph} from "./graphs/ForceGraph";
-import data1 from "./data/data1.json"
-
-import ForceGraph3D, { ForceGraphMethods, LinkObject, NodeObject } from 'react-force-graph-3d';
-
-import * as d3 from "d3";
+import data1 from "./data/miserables.json"
 
 const Main = styled("main")`
     display: flex;
@@ -19,22 +15,12 @@ const Main = styled("main")`
 `
 
 const App: FC = () => {
-    const [xFactor, setXFactor] = useState<number>(0);
-    const [yFactor, setYFactor] = useState<number>(0);
+    const [xFactor, setXFactor] = useState<number>(0.2);
+    const [yFactor, setYFactor] = useState<number>(0.1);
 
     const [index, setIndex] = useState<number>(0);
 
     const data = [data1];
-
-    const ref = useRef<ForceGraphMethods<any, any>>(null);
-
-    useEffect(() => {
-        ref.current?.d3Force("x", d3.forceX().strength(xFactor))
-        ref.current?.d3Force("y", d3.forceY().strength(yFactor))
-        return () => {
-            ref.current?.d3ReheatSimulation()
-        }
-    }, [xFactor, yFactor])
 
     return (
         <Main>
@@ -49,19 +35,10 @@ const App: FC = () => {
                 <button onClick={() => setIndex((prev) => (prev + 1) % data.length)}>next</button>
                 <span style={{color: "white"}}>{index}</span>
             </div>
-            <ForceGraph3D
-                width={1200}
-                height={600}
-                nodeVal={(d) => d.value ? d.value : 100} 
-                graphData={data1} 
-                nodeLabel={node => node.id ? node.id : ""} 
-                nodeAutoColorBy="id" 
-                linkDirectionalParticles={1}
-                ref={ref as any}
-
-            />
+            <ForceGraph width={1600} height={800} datasets={data} xFactor={xFactor} yFactor={yFactor} index={index} />
         </Main>
     )
 }
+
 
 export default App;
